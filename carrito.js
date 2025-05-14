@@ -1,88 +1,53 @@
+// Obtener los elementos del DOM al cargar el script
+const mini = document.getElementById("producto-mini");
+const contador = document.getElementById("contador-carrito");
+const totalCarrito = document.getElementById("total-carrito");
+const popup = document.getElementById("carrito-popup");
+
 export const carrito = [];
 
-export function agregarAlCarrito(
-  producto,
-  iconoCarrito,
-  popup,
-  contenidoCarrito,
-  contador,
-  totalCarrito
-) {
-  const productoExistente = carrito.find((item) => item.id === producto.id);
-
-  if (productoExistente) {
-    productoExistente.cantidad += 1;
-  } else {
-    carrito.push({ ...producto, cantidad: 1 });
-  }
-
-  actualizarCarrito(
-    iconoCarrito,
-    popup,
-    contenidoCarrito,
-    contador,
-    totalCarrito
-  );
+export function agregarAlCarrito(producto) {
+  carrito.push(producto);
+  actualizarCarrito();
 }
 
-//funciones del carrito
-export function actualizarCarrito(
-  iconoCarrito,
-  popup,
-  contenidoCarrito,
-  contador,
-  totalCarrito
-) {
-  //se reinicia el total en cada actualizacion
+export function actualizarCarrito() {
+  // Verificar si los elementos están correctamente obtenidos
+  if (!mini || !contador || !totalCarrito || !popup) {
+    console.error("No se encontraron los elementos del carrito en el DOM.");
+    return;
+  }
+
+  mini.innerHTML = ""; // Limpiar el contenido actual
   let total = 0;
-  contenidoCarrito.innerHTML = " ";
-  carrito.forEach((producto) => {
-    total += producto.precio * producto.cantidad;
+
+  carrito.forEach((producto, index) => {
+    total += producto.precio;
 
     const item = document.createElement("div");
-    item.classList.add("mb-5");
+    item.classList.add("producto-item");
     item.innerHTML = `
-    <div> 
-        <div>
-        <p> ${producto.nombre} </p>
-      <small> $ ${producto.nombre}</small>
-      </div> 
       <div style="display: flex; align-items: center;">
-      <button class ="btn btn-sm btn-secondary"  onclick ="actualizarCantidad(${producto.id},-1)">-</button>
-      <button class ="btn btn-sm btn-secondary"  onclick ="actualizarCantidad(${producto.id},1)">+</button>
-         </div>
-            </div>
-     `;
-    contenidoCarrito.appendChild(item);
+        <img src="${
+          producto.imagenUrl
+        }" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+        <div>
+          <p style="margin: 0;">${producto.nombre}</p>
+          <small>${producto.descripcion}</small>
+          <small>$${producto.precio}</small>
+        </div>
+        <div style="margin-left: auto;">
+          <button onclick="actualizarCantidad(${index}, -1)">-</button>
+          <span>${producto.cantidad || 1}</span>
+          <button onclick="actualizarCantidad(${index}, 1)">+</button>
+        </div>
+      </div>
+      <hr>
+    `;
+    mini.appendChild(item);
   });
-
-  totalCarrito.innerText = `Total: $${total}`;
-
+  popup.classList.add("visible");
+  // Actualizar el contador y el total
   contador.innerText = carrito.length;
-  contador.style.display = carrito.length > 0 ? "inline-block" : "none";
-
-  if (carrito.length > 0) {
-    popup.classList.add("visible");
-  }
-}
-// Función para actualizar la cantidad de un producto
-export function actualizarCantidad(id, cambio) {
-  const producto = carrito.find((item) => item.id === id);
-
-  if (producto) {
-    producto.cantidad += cambio;
-
-    if (producto.cantidad <= 0) {
-      const index = carrito.indexOf(producto);
-      carrito.splice(index, 1); // Si la cantidad llega a 0, eliminamos el producto
-    }
-
-    actualizarCarrito(
-      iconoCarrito,
-      popup,
-      contenidoCarrito,
-      contador,
-      totalCarrito
-    ); // Volvemos a renderizar el carrito
-  }
+  totalCarrito.innerText = `Total: $${total}`;
 }

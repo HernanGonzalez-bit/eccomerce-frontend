@@ -10,6 +10,16 @@
 </head>
 
 <body>
+
+
+  <div id="carrito-icono" class="carrito-container">
+    <img src="assets/carrito.png" alt="carrito-png" width="40" />
+    <span id="contador-carrito" class="contador-carrito">0</span>
+
+  </div>
+
+
+
   <!--class="row justify-content-center" del div detalle-producto-->
   <div class="container mt-4 justify-content-start ">
     <div id="detalle-producto">
@@ -18,30 +28,17 @@
   </div>
 
 
-  <div id="carrito-icono" class="carrito-container">
-    <img src="assets/carrito.png" alt="carrito-png" width="40" />
-    <span id="contador-carrito" class="contador-carrito">0</span>
 
-  </div>
   <!--Icono carrito y contador de objetos -->
 
 
   <!-- Panel lateral del carrito -->
 
 
-  <!--Ventana modal una vez que se agrega al carrito-->
-  <div id="carrito-popup" class="popup-carrito ">
-    <h6 class="text-center">Producto agregado</h6>
-    <div id="producto-mini"></div>
 
-    <span id="cantidad">0</span>
-    <hr>
-    <p class="fw-bold text-center"><span id="total-carrito">0</span></p>
-    <button class="btn btn-success w-100">Iniciar compra</button>
-  </div>
 
-  <script type=module src="carrito.js"></script>
-  <script type=module src="detalle.js"></script>
+  <script type="module" src="detalle.js"></script>
+  <script type="module" src="carrito.js"></script>
 
 </body>
 

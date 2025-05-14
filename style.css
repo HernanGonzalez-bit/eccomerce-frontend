@@ -28,7 +28,7 @@ body {
   margin-bottom: 15px;
 }
 
-.carrito-popup {
+#carrito-popup {
   position: fixed;
   top: 60px;
   right: 40px;
@@ -43,9 +43,6 @@ body {
   transform: translateX(120%);
   transition: transform 0.3s ease-in-out;
   z-index: 999;
-}
-.carrito-popup.mostrar {
-  transform: translateX(0);
 }
 
 .product-img {
