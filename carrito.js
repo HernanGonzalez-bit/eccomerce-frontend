@@ -28,7 +28,8 @@ export function agregarAlCarrito(producto, popup, contenidoCarrito, contador, to
 export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito) {
   let total = 0;
   let cantidadTotal = 0;
-  contenidoCarrito.innerHTML = ""; // Limpiar el contenido previo
+  contenidoCarrito.innerHTML = "";
+  // contenidoCarrito.innerHTML = ""; // Limpiar el contenido previo
 
   if (carrito.length === 0) {
     contenidoCarrito.innerHTML = `
@@ -51,11 +52,9 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
 
     item.innerHTML = `
               
-      <div style="display: flex; align-items: center; gap: 10px;">
+      <div class = "card-img-descripcion" >
         <img src="${producto.imagenUrl}" style="width: 50px; height: 50px; object-fit: cover;">
       <p> ${producto.descripcion}  </p>
-      
-      
       
       </div>
     `;
@@ -66,7 +65,7 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
   contador.innerText = cantidadTotal;
   totalCarrito.innerText = `Total: $${total}`;
 
-  if (carrito.length > 0) {
+  if (carrito.length >= 0) {
     popup.classList.add("visible");
   } else {
     //popup.classList.remove("visible");
@@ -87,6 +86,12 @@ export function actualizarCantidad(id, cambio, popup, contenidoCarrito, contador
     if (producto.cantidad <= 0) {
       const index = carrito.indexOf(producto);
       carrito.splice(index, 1);
+      totalCarrito.style.display = "none";
+      btnCompra.style.display = "none";
+      cantidad.style.display = "none";
+      btnIncremento.style.display = "none";
+      btnDecremento.style.display = "none";
+      carrito.length = 0;
     }
     actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito); // Actualizar el carrito después del cambio
   }

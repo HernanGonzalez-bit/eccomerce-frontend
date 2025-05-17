@@ -51,6 +51,8 @@ fetch(`http://localhost:8020/api/productos/${id}`)
       cantidad.style.display = "flex";
       btnIncremento.style.display = "block";
       btnDecremento.style.display = "block";
+
+      cantidadSpan.textContent = parseInt(cantidadSpan.textContent) + 1;
     });
 
     // Incrementar cantidad
