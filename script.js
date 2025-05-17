@@ -8,16 +8,20 @@ fetch("http://localhost:8020/api/productos")
       const card = document.createElement("div");
       card.className = "col-6 col-md-3 mb-4"; //3 por fila en escritorio,2 en mobile.
       card.innerHTML = `
-      <div class= "card h-100 shadow" style ="width: 19rem;cursor:pointer;" onclick="window.location.href='detalle.html?id=${p.id}'">
+      <div class= "card h-100  shadow card-inicio"  >
         <img src ="${p.imagenUrl}" class = "card-img-top" alt ="${p.nombre}" >
-        <div class = "card-body p-2 d-flex flex-column aling-items-stretch">
+        <div class = "card-body">
         <h5 class ="card-title text-center">
         <a href="detalle.html?id=${p.id}" class ="text-decoration-none text-dark">
         ${p.nombre} </a>
 
         </h5>
         <p class= "card-text text-center" style ="font-size :13px"><strong> ${p.descripcion} </strong></p>
+
         <p class= "card-text fw-bold text-center" > $ ${p.precio} </p>
+        <span class ="vermas-contenedor">
+        <button class = "btn btn-secondary vermas " onclick="window.location.href='detalle.html?id=${p.id}'"> Ver mas </button>
+         </span>
       
         </div>
       </div>

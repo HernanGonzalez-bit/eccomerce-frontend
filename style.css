@@ -2,22 +2,9 @@ body {
   background-color: #ebe9ea;
 }
 
-.carrito-container {
-  position: sticky;
-  left: 90%;
+.card-inicio {
+  width: 19rem;
   cursor: pointer;
-}
-
-.contador-carrito {
-  position: sticky;
-  top: 2px;
-  right: -5px;
-  background-color: rgb(19, 19, 19);
-  color: white;
-  border-radius: 60%;
-  padding: 2px 6px;
-  font-size: 14px;
-  width: 20px;
 }
 
 .line {
@@ -28,7 +15,38 @@ body {
   margin-bottom: 15px;
 }
 
-#carrito-popup {
+.vermas-contenedor {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.vermas {
+  display: flex;
+  background-color: rgb(0, 0, 0);
+  width: 10rem;
+  justify-content: center;
+}
+
+.card-body {
+  justify-content: center;
+  align-items: center;
+}
+
+/*PAGINA DETALLE */
+
+.inicio {
+  font-size: 30px;
+
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.contenedor-detalle {
+  height: 50vh;
+}
+.carrito-popup {
   position: fixed;
   top: 60px;
   right: 40px;
@@ -43,6 +61,16 @@ body {
   transform: translateX(120%);
   transition: transform 0.3s ease-in-out;
   z-index: 999;
+}
+.carrito-popup.mostrar {
+  transform: translateX(0);
+}
+
+.icon-delete {
+  justify-content: center;
+  margin: auto;
+  width: 600px;
+  cursor: pointer;
 }
 
 .product-img {
@@ -70,6 +98,27 @@ body {
 #contenedor-detalle {
   height: 100%;
   object-fit: contain;
+}
+
+.contador-carrito {
+  position: sticky;
+  top: 2px;
+  right: -5px;
+  background-color: rgb(19, 19, 19);
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 14px;
+  width: 70px;
+  height: 40px;
+  display: flex;
+}
+
+.carrito-container {
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 100%;
+  width: 100px;
 }
 
 .popup-carrito {
@@ -104,4 +153,23 @@ body {
   justify-content: center;
   padding-top: 8px;
   font-weight: bold;
+}
+
+.btn-decremento {
+  justify-content: center;
+  margin-bottom: 50px;
+  border-radius: 30px;
+  width: 15%;
+  margin: auto;
+  display: flex;
+  border: solid 0.5px rgb(0, 0, 0);
+}
+.btn-incremento {
+  justify-content: center;
+  margin-top: 20px;
+  border-radius: 30px;
+  width: 15%;
+  margin: auto;
+  display: flex;
+  border: solid 0.5px rgb(0, 0, 0);
 }

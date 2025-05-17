@@ -1,17 +1,26 @@
-// Obtener el ID del producto desde la URL
+import { agregarAlCarrito, actualizarCantidad, actualizarCarrito, vaciarCarrito } from "./carrito.js";
+
+const btnVaciar = document.getElementById("icon-delete");
+btnVaciar.addEventListener("click", () => {
+  vaciarCarrito(popup, contenidoCarrito, contador, totalCarrito);
+});
+
+// Obtener el ID del producto de la URL
 const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
-console.log("ID obtenido:", id);
+const id = parseInt(params.get("id"));
 
-import { agregarAlCarrito, carrito } from "./carrito.js";
+// Obtener elementos del DOM
+const popup = document.getElementById("carrito-popup");
+const contenidoCarrito = document.getElementById("producto-mini");
+const contador = document.getElementById("contador-carrito");
+const totalCarrito = document.getElementById("total-carrito");
 
-// Fetch y renderizado del producto
+// Fetch del producto
 fetch(`http://localhost:8020/api/productos/${id}`)
   .then((res) => res.json())
   .then((producto) => {
     const detalleDiv = document.getElementById("detalle-producto");
 
-    // Crear la estructura del detalle del producto
     detalleDiv.innerHTML = `
       <div class="card col-md-4 shadow" id="contenedor-detalle">
         <img src="${producto.imagenUrl}" class="card-img-top product-img" alt="${producto.nombre}">
@@ -26,11 +35,28 @@ fetch(`http://localhost:8020/api/productos/${id}`)
       </div>
     `;
 
-    // Botón para agregar al carrito
     const botonAgregar = document.getElementById("btn-agregar");
+    const btnIncremento = document.getElementById("incremento");
+    const btnDecremento = document.getElementById("decremento");
+    const cantidadSpan = document.getElementById("cantidad");
+
+    // Agregar producto al carrito
     botonAgregar.addEventListener("click", () => {
-      agregarAlCarrito(producto);
-      console.log("Carrito actualizado:", carrito);
+      agregarAlCarrito(producto, popup, contenidoCarrito, contador, totalCarrito);
+    });
+
+    // Incrementar cantidad
+    btnIncremento.addEventListener("click", () => {
+      actualizarCantidad(id, 1, popup, contenidoCarrito, contador, totalCarrito);
+      cantidadSpan.textContent = parseInt(cantidadSpan.textContent) + 1;
+    });
+
+    // Decrementar cantidad
+    btnDecremento.addEventListener("click", () => {
+      if (parseInt(cantidadSpan.textContent) > 0) {
+        actualizarCantidad(id, -1, popup, contenidoCarrito, contador, totalCarrito);
+        cantidadSpan.textContent = parseInt(cantidadSpan.textContent) - 1;
+      }
     });
   })
-  .catch((error) => console.error("Error al obtener el producto:", error));
+  .catch((error) => console.error("Error al obtener el producto", error));
