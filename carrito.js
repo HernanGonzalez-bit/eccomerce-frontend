@@ -1,7 +1,9 @@
 export const carrito = [];
-const cantidad = document.getElementById("cantidad");
 
 const mensajeCarritoVacio = document.getElementById("icono-carrito-contenido");
+const btnCompra = document.getElementById("btn-iniciar-compra");
+const btnIncremento = document.getElementById("incremento");
+const btnDecremento = document.getElementById("decremento");
 
 mensajeCarritoVacio.addEventListener("click", (e) => {
   console.log("carritovacio");
@@ -31,11 +33,10 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
   if (carrito.length === 0) {
     contenidoCarrito.innerHTML = `
               
-    <div style="display: flex; align-items: center; gap: 10px;">
+   
      
-    <p> Carrito vacio jum </p>
-    
-    </div>
+    <p><strong>El carrito esta vacio</strong></p>
+   
   `;
   }
 
@@ -53,6 +54,7 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
       <div style="display: flex; align-items: center; gap: 10px;">
         <img src="${producto.imagenUrl}" style="width: 50px; height: 50px; object-fit: cover;">
       <p> ${producto.descripcion}  </p>
+      
       
       
       </div>
@@ -90,9 +92,13 @@ export function actualizarCantidad(id, cambio, popup, contenidoCarrito, contador
   }
 }
 
-export function vaciarCarrito(popup, contenidoCarrito, contador, totalCarrito, cantidadTotal) {
+export function vaciarCarrito(popup, contenidoCarrito, contador, totalCarrito) {
+  totalCarrito.style.display = "none";
+  btnCompra.style.display = "none";
+  cantidad.style.display = "none";
+  btnIncremento.style.display = "none";
+  btnDecremento.style.display = "none";
   carrito.length = 0;
-  cantidadTotal = 0;
 
   actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito);
 }

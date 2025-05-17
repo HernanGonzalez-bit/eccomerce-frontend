@@ -1,4 +1,4 @@
-import { agregarAlCarrito, actualizarCantidad, actualizarCarrito, vaciarCarrito } from "./carrito.js";
+import { agregarAlCarrito, actualizarCantidad, vaciarCarrito } from "./carrito.js";
 
 const btnVaciar = document.getElementById("icon-delete");
 btnVaciar.addEventListener("click", () => {
@@ -14,6 +14,7 @@ const popup = document.getElementById("carrito-popup");
 const contenidoCarrito = document.getElementById("producto-mini");
 const contador = document.getElementById("contador-carrito");
 const totalCarrito = document.getElementById("total-carrito");
+const btnCompra = document.getElementById("btn-iniciar-compra");
 
 // Fetch del producto
 fetch(`http://localhost:8020/api/productos/${id}`)
@@ -43,6 +44,13 @@ fetch(`http://localhost:8020/api/productos/${id}`)
     // Agregar producto al carrito
     botonAgregar.addEventListener("click", () => {
       agregarAlCarrito(producto, popup, contenidoCarrito, contador, totalCarrito);
+
+      totalCarrito.style.display = "block";
+      btnCompra.style.display = "block";
+      contador.style.display = "flex";
+      cantidad.style.display = "flex";
+      btnIncremento.style.display = "block";
+      btnDecremento.style.display = "block";
     });
 
     // Incrementar cantidad
