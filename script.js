@@ -1,3 +1,16 @@
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById("carrito-popup");
+  const contenidoCarrito = document.getElementById("producto-mini");
+  const contador = document.getElementById("contador-carrito");
+  const totalCarrito = document.getElementById("total-carrito");
+
+  
+});
+
+
 fetch("http://localhost:8020/api/productos")
   .then((res) => res.json())
   .then((data) => {
@@ -20,7 +33,7 @@ fetch("http://localhost:8020/api/productos")
 
         <p class= "card-text fw-bold text-center" > $ ${p.precio} </p>
         <span class ="vermas-contenedor">
-        <button class = "btn btn-secondary vermas " onclick="window.location.href='detalle.html?id=${p.id}'"> Ver mas </button>
+        <button class = "btn btn-secondary vermas" id = "vermas" onclick = "verMas(${p.id})"> Ver mas </button>
          </span>
       
         </div>
@@ -29,3 +42,12 @@ fetch("http://localhost:8020/api/productos")
       container.appendChild(card);
     });
   });
+
+window.verMas = function (id) {
+  const preloader = document.getElementById("preloader");
+  preloader.style.display = "flex";
+  setTimeout(() => {
+    window.location.href = `detalle.html?id=${id}`;
+  }, 1000);
+  //preloader.style.display = "block";
+};

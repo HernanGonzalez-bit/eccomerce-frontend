@@ -1,13 +1,18 @@
-export const carrito = [];
+const carritoGuardado = localStorage.getItem("carrito");
+export const carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
+
+
+export function guardarCarrito() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
 
 const mensajeCarritoVacio = document.getElementById("icono-carrito-contenido");
 const btnCompra = document.getElementById("btn-iniciar-compra");
 const btnIncremento = document.getElementById("incremento");
 const btnDecremento = document.getElementById("decremento");
 
-mensajeCarritoVacio.addEventListener("click", (e) => {
-  console.log("carritovacio");
-});
+
 
 // Agregar producto al carrito
 export function agregarAlCarrito(producto, popup, contenidoCarrito, contador, totalCarrito) {
@@ -52,11 +57,30 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
 
     item.innerHTML = `
               
-      <div class = "card-img-descripcion" >
-        <img src="${producto.imagenUrl}" style="width: 50px; height: 50px; object-fit: cover;">
-      <p> ${producto.descripcion}  </p>
       
-      </div>
+    <ul class="product-list">
+      <li class="product-item">
+        <div class="product-info">
+          <img src="${producto.imagenUrl}" alt="Jogger Cargo">
+          <div class="product-details">
+            <span>${producto.descripcion}</span>
+
+          </div>
+        </div>
+        <div class="product-cantidad">
+          <button class= "btn-restar" data-id = "${producto.id}"2>-</button>
+          <span class ="cantidad" data-id = "${producto.id}">${producto.cantidad}</span>
+          <button class="btn-sumar" data-id="${producto.id}">+</button>
+        </div>
+        <div class="price">$${producto.precio}</div>
+         <span class="material-symbols-outlined delete-btn" id="icon-delete">
+        delete
+      </span>
+      </li>
+    </ul>
+ 
+      
+      
     `;
     contenidoCarrito.appendChild(item);
   });
@@ -97,6 +121,8 @@ export function actualizarCantidad(id, cambio, popup, contenidoCarrito, contador
   }
 }
 
+guardarCarrito()
+
 export function vaciarCarrito(popup, contenidoCarrito, contador, totalCarrito) {
   totalCarrito.style.display = "none";
   btnCompra.style.display = "none";
@@ -106,4 +132,5 @@ export function vaciarCarrito(popup, contenidoCarrito, contador, totalCarrito) {
   carrito.length = 0;
 
   actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito);
+  guardarCarrito()
 }

@@ -1,9 +1,9 @@
-import { agregarAlCarrito, actualizarCantidad, vaciarCarrito } from "./carrito.js";
+import { agregarAlCarrito, actualizarCantidad, vaciarCarrito, actualizarCarrito } from "./carrito.js";
 
-const btnVaciar = document.getElementById("icon-delete");
+/*const btnVaciar = document.getElementById("icon-delete");
 btnVaciar.addEventListener("click", () => {
   vaciarCarrito(popup, contenidoCarrito, contador, totalCarrito);
-});
+});*/
 
 // Obtener el ID del producto de la URL
 const params = new URLSearchParams(window.location.search);
@@ -53,7 +53,11 @@ fetch(`http://localhost:8020/api/productos/${id}`)
       btnDecremento.style.display = "block";
 
       cantidadSpan.textContent = parseInt(cantidadSpan.textContent) + 1;
+      console.log("produ agregado");
+      
     });
+
+    
 
     // Incrementar cantidad
     btnIncremento.addEventListener("click", () => {
