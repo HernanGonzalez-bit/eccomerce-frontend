@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const contenidoCarrito = document.getElementById("producto-mini");
   const contador = document.getElementById("contador-carrito");
   const totalCarrito = document.getElementById("total-carrito");
-
-  
+ 
 });
+
 
 
 fetch("http://localhost:8020/api/productos")
@@ -42,6 +42,8 @@ fetch("http://localhost:8020/api/productos")
       container.appendChild(card);
     });
   });
+
+
 
 window.verMas = function (id) {
   const preloader = document.getElementById("preloader");

@@ -1,5 +1,6 @@
 const carritoGuardado = localStorage.getItem("carrito");
 export const carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
+const contenidoCarrito = document.getElementById("producto-mini");
 
 
 export function guardarCarrito() {
@@ -7,10 +8,14 @@ export function guardarCarrito() {
 }
 
 
-const mensajeCarritoVacio = document.getElementById("icono-carrito-contenido");
+
 const btnCompra = document.getElementById("btn-iniciar-compra");
-const btnIncremento = document.getElementById("incremento");
-const btnDecremento = document.getElementById("decremento");
+
+const popup = document.getElementById("carrito-popup");
+const contador = document.getElementById("contador-carrito");
+const totalCarrito = document.getElementById("total-carrito");
+const cantidadSpan = document.getElementById("cantidad");
+
 
 
 
@@ -29,26 +34,36 @@ export function agregarAlCarrito(producto, popup, contenidoCarrito, contador, to
 
 //-----------------------------------------------------------------------------------------------
 
+
 // Actualizar el carrito
 export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito) {
+ 
   let total = 0;
   let cantidadTotal = 0;
   contenidoCarrito.innerHTML = "";
   // contenidoCarrito.innerHTML = ""; // Limpiar el contenido previo
 
+  
   if (carrito.length === 0) {
+    totalCarrito.style.display = "none";
+    btnCompra.style.display = "none";
+    cantidad.style.display = "none";
+    carrito.length = 0;
+  
     contenidoCarrito.innerHTML = `
               
-   
-     
+
     <p><strong>El carrito esta vacio</strong></p>
    
   `;
   }
 
+
+
   carrito.forEach((producto) => {
     total += producto.precio * producto.cantidad;
     cantidadTotal += producto.cantidad;
+    
 
     const item = document.createElement("div");
     item.style.display = "flex";
@@ -61,19 +76,19 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
     <ul class="product-list">
       <li class="product-item">
         <div class="product-info">
-          <img src="${producto.imagenUrl}" alt="Jogger Cargo">
+          <img src="${producto.imagenUrl}" >
           <div class="product-details">
             <span>${producto.descripcion}</span>
 
           </div>
         </div>
         <div class="product-cantidad">
-          <button class= "btn-restar" data-id = "${producto.id}"2>-</button>
-          <span class ="cantidad" data-id = "${producto.id}">${producto.cantidad}</span>
+          <button class= "btn-restar" data-id = "${producto.id}">-</button>
+          <span class ="cantidad" data-id = "${producto.id}" >${producto.cantidad}</span>
           <button class="btn-sumar" data-id="${producto.id}">+</button>
         </div>
-        <div class="price">$${producto.precio}</div>
-         <span class="material-symbols-outlined delete-btn" id="icon-delete">
+        <div class="price">$${producto.precio * producto.cantidad}</div>
+         <span class="material-symbols-outlined delete-btn" id="icon-delete" >
         delete
       </span>
       </li>
@@ -100,6 +115,11 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
 
 //vaciar carrito
 
+
+
+
+//-----------------------------------------------------------------------------------------------
+
 // Actualizar la cantidad de un producto
 export function actualizarCantidad(id, cambio, popup, contenidoCarrito, contador, totalCarrito) {
   const producto = carrito.find((item) => item.id === id);
@@ -113,24 +133,36 @@ export function actualizarCantidad(id, cambio, popup, contenidoCarrito, contador
       totalCarrito.style.display = "none";
       btnCompra.style.display = "none";
       cantidad.style.display = "none";
-      btnIncremento.style.display = "none";
-      btnDecremento.style.display = "none";
       carrito.length = 0;
     }
     actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito); // Actualizar el carrito después del cambio
   }
 }
 
-guardarCarrito()
 
-export function vaciarCarrito(popup, contenidoCarrito, contador, totalCarrito) {
-  totalCarrito.style.display = "none";
-  btnCompra.style.display = "none";
-  cantidad.style.display = "none";
-  btnIncremento.style.display = "none";
-  btnDecremento.style.display = "none";
-  carrito.length = 0;
+// Incrementar cantidad
 
-  actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito);
+
+contenidoCarrito.addEventListener("click",(e) => {
+if (e.target.classList.contains("btn-sumar")) {
+  const id = parseInt(e.target.dataset.id);
+  actualizarCantidad(id, 1, popup, contenidoCarrito, contador, totalCarrito);
+  cantidadSpan.textContent = parseInt(cantidadSpan.textContent) + 1;
+  guardarCarrito()
+
+}
+
+if (e.target.classList.contains("btn-restar")) {
+  const id = parseInt(e.target.dataset.id);
+  actualizarCantidad(id, -1, popup, contenidoCarrito, contador, totalCarrito);
+  cantidadSpan.textContent = parseInt(cantidadSpan.textContent) - 1;
   guardarCarrito()
 }
+
+
+})
+
+
+
+guardarCarrito()
+

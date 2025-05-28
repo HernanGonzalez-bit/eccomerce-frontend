@@ -1,4 +1,4 @@
-import { agregarAlCarrito, actualizarCantidad, vaciarCarrito, actualizarCarrito } from "./carrito.js";
+import { agregarAlCarrito, guardarCarrito, } from "./carrito.js";
 
 /*const btnVaciar = document.getElementById("icon-delete");
 btnVaciar.addEventListener("click", () => {
@@ -37,8 +37,7 @@ fetch(`http://localhost:8020/api/productos/${id}`)
     `;
 
     const botonAgregar = document.getElementById("btn-agregar");
-    const btnIncremento = document.getElementById("incremento");
-    const btnDecremento = document.getElementById("decremento");
+    
     const cantidadSpan = document.getElementById("cantidad");
 
     // Agregar producto al carrito
@@ -48,29 +47,13 @@ fetch(`http://localhost:8020/api/productos/${id}`)
       totalCarrito.style.display = "block";
       btnCompra.style.display = "block";
       contador.style.display = "flex";
-      cantidad.style.display = "flex";
-      btnIncremento.style.display = "block";
-      btnDecremento.style.display = "block";
-
       cantidadSpan.textContent = parseInt(cantidadSpan.textContent) + 1;
       console.log("produ agregado");
       
+   
+
     });
 
-    
-
-    // Incrementar cantidad
-    btnIncremento.addEventListener("click", () => {
-      actualizarCantidad(id, 1, popup, contenidoCarrito, contador, totalCarrito);
-      cantidadSpan.textContent = parseInt(cantidadSpan.textContent) + 1;
-    });
-
-    // Decrementar cantidad
-    btnDecremento.addEventListener("click", () => {
-      if (parseInt(cantidadSpan.textContent) > 0) {
-        actualizarCantidad(id, -1, popup, contenidoCarrito, contador, totalCarrito);
-        cantidadSpan.textContent = parseInt(cantidadSpan.textContent) - 1;
-      }
-    });
+    guardarCarrito();
   })
   .catch((error) => console.error("Error al obtener el producto", error));
