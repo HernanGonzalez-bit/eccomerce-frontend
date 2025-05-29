@@ -1,5 +1,5 @@
 const carritoGuardado = localStorage.getItem("carrito");
-export const carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
+export let carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
 const contenidoCarrito = document.getElementById("producto-mini");
 
 
@@ -7,10 +7,7 @@ export function guardarCarrito() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-
-
 const btnCompra = document.getElementById("btn-iniciar-compra");
-
 const popup = document.getElementById("carrito-popup");
 const contador = document.getElementById("contador-carrito");
 const totalCarrito = document.getElementById("total-carrito");
@@ -53,7 +50,7 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
     contenidoCarrito.innerHTML = `
               
 
-    <p><strong>El carrito esta vacio</strong></p>
+    <p class = "mensaje-carrito-vacio"><strong>El carrito esta vacio</strong></p>
    
   `;
   }
@@ -71,8 +68,6 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
     item.classList.add("carrito-item");
 
     item.innerHTML = `
-              
-      
     <ul class="product-list">
       <li class="product-item">
         <div class="product-info">
@@ -88,20 +83,17 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
           <button class="btn-sumar" data-id="${producto.id}">+</button>
         </div>
         <div class="price">$${producto.precio * producto.cantidad}</div>
-         <span class="material-symbols-outlined delete-btn" id="icon-delete" >
+         <span class="material-symbols-outlined delete-btn" data-id=${producto.id}>
         delete
       </span>
       </li>
     </ul>
- 
-      
-      
     `;
     contenidoCarrito.appendChild(item);
   });
 
   // Actualizar el contador y el total del carrito
-  contador.innerText = cantidadTotal;
+  contador.innerText = carrito.length;
   totalCarrito.innerText = `Total: $${total}`;
 
   if (carrito.length >= 0) {
@@ -109,7 +101,29 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
   } else {
     //popup.classList.remove("visible");
   }
+  guardarCarrito()
 }
+
+
+contenidoCarrito.addEventListener("click",(e) => {
+  if (e.target.classList.contains("delete-btn")) {
+  
+  const id = parseInt(e.target.dataset.id);
+  console.log("di al carrito");
+  
+  carrito = carrito.filter(producto => producto.id !== id );
+
+  actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito);
+  guardarCarrito()
+  }
+  
+  
+  })
+  
+
+
+
+
 
 //-----------------------------------------------------------------------------------------------
 
@@ -136,6 +150,7 @@ export function actualizarCantidad(id, cambio, popup, contenidoCarrito, contador
       carrito.length = 0;
     }
     actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito); // Actualizar el carrito después del cambio
+    guardarCarrito()
   }
 }
 

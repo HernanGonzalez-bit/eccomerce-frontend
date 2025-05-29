@@ -23,7 +23,7 @@ fetch(`http://localhost:8020/api/productos/${id}`)
     const detalleDiv = document.getElementById("detalle-producto");
 
     detalleDiv.innerHTML = `
-      <div class="card col-md-4 shadow" id="contenedor-detalle">
+      <div class="card col-md-5 shadow" id="contenedor-detalle">
         <img src="${producto.imagenUrl}" class="card-img-top product-img" alt="${producto.nombre}">
         <div class="card-body">
           <h5 class="card-title text-center">${producto.nombre}</h5>
@@ -50,8 +50,6 @@ fetch(`http://localhost:8020/api/productos/${id}`)
       cantidadSpan.textContent = parseInt(cantidadSpan.textContent) + 1;
       console.log("produ agregado");
       
-   
-
     });
 
     guardarCarrito();

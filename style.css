@@ -110,9 +110,10 @@ padding-right: 80px;
 /*PRODUCTOS Dentro del carrito*/
 
 .popup-carrito {
+  
   flex-direction: column;
   position: absolute;
-  height: 500px;
+  height: 400px;
   top: 0;
   right: 10px;
   width: 550px;
@@ -125,6 +126,8 @@ padding-right: 80px;
   z-index: 9999;
   opacity: 0;
   transform: translate(100%);
+  max-height: 350px; /* o lo que se ajuste a tu diseño */
+  overflow-y: auto;
 
   transition: transform 0.8s ease-in-out;
 }
@@ -140,6 +143,15 @@ padding-right: 80px;
  
 }
 
+
+.mensaje-carrito-vacio {
+
+display: flex;
+justify-content: center;
+margin: auto;
+font-size: 24px;
+padding-top: 10px;
+}
 
 
 .btn-restar {
@@ -227,6 +239,7 @@ li.product-item {
 }
 
 .product-details span {
+  width: 240px;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
