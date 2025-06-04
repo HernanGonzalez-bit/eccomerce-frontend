@@ -7,16 +7,17 @@
   <title>Ecommerce</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
 
 </head>
 
 <body>
 
-
-  <div class="loader" id="preloader">
-
-
+  <div class="loader-overlay" id="preloader">
+    <div class="spinner"></div>
   </div>
+
   <div id="carrito-icono" class="carrito-container">
     <img src="assets/carrito.png" alt="carrito-png" width="40" id="icono-carrito-contenido"
       class="icono-carrito-contenido" />
@@ -25,24 +26,48 @@
   </div>
 
 
-
-
-
   <!--Contenedor de los productos del inicio-->
-  <div class="container mt-4">
+  <div class="container mt-4 container-productos">
     <div class="line"></div>
     <h1 class="text-center mb-4">Productos </h1>
     <div class="line"></div>
     <div class="row " id="productos-container">
 
-
       <!--Aca van los productos desde js-->
     </div>
   </div>
 
+  <!--Seccion de ventana modal del contenido del carrito y el contador del iconocarrito-->
+  <section class="contenedor-detalle">
+
+    <div id="carrito-icono" class="carrito-container">
+      <img src="assets/carrito.png" alt="carrito-png" width="40" id="icono-carrito-contenido"
+        class="icono-carrito-contenido" id="carrito-contenido" />
+      <span id="contador-carrito" class="contador-carrito"></span>
+
+    </div>
+
+
+    <div id="carrito-popup" class="popup-carrito ">
+      <img src="assets/closel.png" id="icon-close">
+      <h6 class="text-center">Producto agregado</h6>
+
+      <!--Aqui se renderiza la ventana modal-->
+      <div id="producto-mini"></div>
+
+      <span id="cantidad" style="display: none;">0</span>
+
+      <hr>
+      <p class="fw-bold text-center"><span id="total-carrito">0</span></p>
+      <button class="btn btn-success w-100" id="btn-iniciar-compra">Iniciar compra</button>
+    </div>
+  </section>
+
+
+
   <script type="module" src="script.js"></script>
   <script type="module" src="detalle.js"></script>
-
+  <script type="module" src="carrito.js"></script>
 
 
 

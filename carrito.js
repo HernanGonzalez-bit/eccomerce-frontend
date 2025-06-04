@@ -12,9 +12,9 @@ const popup = document.getElementById("carrito-popup");
 const contador = document.getElementById("contador-carrito");
 const totalCarrito = document.getElementById("total-carrito");
 const cantidadSpan = document.getElementById("cantidad");
+const iconClose = document.getElementById("icon-close")
 
-
-
+const iconoCarrito = document.getElementById("icono-carrito-contenido")
 
 // Agregar producto al carrito
 export function agregarAlCarrito(producto, popup, contenidoCarrito, contador, totalCarrito) {
@@ -27,6 +27,7 @@ export function agregarAlCarrito(producto, popup, contenidoCarrito, contador, to
   }
 
   actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito);
+  popup.classList.add("visible");
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -41,20 +42,19 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
   // contenidoCarrito.innerHTML = ""; // Limpiar el contenido previo
 
   
-  if (carrito.length === 0) {
+  if (carrito.length == 0) {
     totalCarrito.style.display = "none";
     btnCompra.style.display = "none";
-    cantidad.style.display = "none";
+    cantidad.style.display = "block";
     carrito.length = 0;
   
     contenidoCarrito.innerHTML = `
-              
-
+            
     <p class = "mensaje-carrito-vacio"><strong>El carrito esta vacio</strong></p>
-   
+    
+  
   `;
   }
-
 
 
   carrito.forEach((producto) => {
@@ -68,6 +68,7 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
     item.classList.add("carrito-item");
 
     item.innerHTML = `
+    
     <ul class="product-list">
       <li class="product-item">
         <div class="product-info">
@@ -96,41 +97,44 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
   contador.innerText = carrito.length;
   totalCarrito.innerText = `Total: $${total}`;
 
-  if (carrito.length >= 0) {
-    popup.classList.add("visible");
-  } else {
-    //popup.classList.remove("visible");
-  }
   guardarCarrito()
 }
 
 
+
+//Eliminar cualquier producto del carrito
 contenidoCarrito.addEventListener("click",(e) => {
   if (e.target.classList.contains("delete-btn")) {
   
   const id = parseInt(e.target.dataset.id);
-  console.log("di al carrito");
-  
   carrito = carrito.filter(producto => producto.id !== id );
 
-  actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito);
-  guardarCarrito()
+
   }
   
   
-  })
+  if (e.target.classList.contains("btn-sumar")) {
+    const id = parseInt(e.target.dataset.id);
+    actualizarCantidad(id, 1, popup, contenidoCarrito, contador, totalCarrito);
+    cantidadSpan.textContent = parseInt(cantidadSpan.textContent) + 1;
+    guardarCarrito()
+  
+  }
+  
+  if (e.target.classList.contains("btn-restar")) {
+    const id = parseInt(e.target.dataset.id);
+    actualizarCantidad(id, -1, popup, contenidoCarrito, contador, totalCarrito);
+    cantidadSpan.textContent = parseInt(cantidadSpan.textContent) - 1;
+    guardarCarrito()
+  }
   
 
 
+  actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito);
+  guardarCarrito()
 
-
-
-//-----------------------------------------------------------------------------------------------
-
-//vaciar carrito
-
-
-
+  })
+  
 
 //-----------------------------------------------------------------------------------------------
 
@@ -144,40 +148,32 @@ export function actualizarCantidad(id, cambio, popup, contenidoCarrito, contador
     if (producto.cantidad <= 0) {
       const index = carrito.indexOf(producto);
       carrito.splice(index, 1);
-      totalCarrito.style.display = "none";
-      btnCompra.style.display = "none";
-      cantidad.style.display = "none";
-      carrito.length = 0;
+      
+      
     }
     actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito); // Actualizar el carrito después del cambio
     guardarCarrito()
   }
 }
 
+//iconos para cerrar la ventana del carrito
 
-// Incrementar cantidad
+iconClose.addEventListener("click", ()=> {
 
-
-contenidoCarrito.addEventListener("click",(e) => {
-if (e.target.classList.contains("btn-sumar")) {
-  const id = parseInt(e.target.dataset.id);
-  actualizarCantidad(id, 1, popup, contenidoCarrito, contador, totalCarrito);
-  cantidadSpan.textContent = parseInt(cantidadSpan.textContent) + 1;
-  guardarCarrito()
-
-}
-
-if (e.target.classList.contains("btn-restar")) {
-  const id = parseInt(e.target.dataset.id);
-  actualizarCantidad(id, -1, popup, contenidoCarrito, contador, totalCarrito);
-  cantidadSpan.textContent = parseInt(cantidadSpan.textContent) - 1;
-  guardarCarrito()
-}
+  popup.classList.remove('visible');
+})
 
 
+iconoCarrito.addEventListener("click",() => {
+
+  if (popup.classList.contains("popup-carrito")){
+
+    popup.classList.add("visible")
+  } 
 })
 
 
 
-guardarCarrito()
 
+guardarCarrito()
+actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito);

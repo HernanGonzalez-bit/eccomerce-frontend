@@ -1,9 +1,7 @@
 import { agregarAlCarrito, guardarCarrito, } from "./carrito.js";
+//import { guardarCarrito } from "./carrito.js";
 
-/*const btnVaciar = document.getElementById("icon-delete");
-btnVaciar.addEventListener("click", () => {
-  vaciarCarrito(popup, contenidoCarrito, contador, totalCarrito);
-});*/
+
 
 // Obtener el ID del producto de la URL
 const params = new URLSearchParams(window.location.search);
@@ -37,8 +35,7 @@ fetch(`http://localhost:8020/api/productos/${id}`)
     `;
 
     const botonAgregar = document.getElementById("btn-agregar");
-    
-    const cantidadSpan = document.getElementById("cantidad");
+   
 
     // Agregar producto al carrito
     botonAgregar.addEventListener("click", () => {
@@ -46,9 +43,8 @@ fetch(`http://localhost:8020/api/productos/${id}`)
 
       totalCarrito.style.display = "block";
       btnCompra.style.display = "block";
-      contador.style.display = "flex";
-      cantidadSpan.textContent = parseInt(cantidadSpan.textContent) + 1;
-      console.log("produ agregado");
+      contador.style.display = "block";
+     
       
     });
 
