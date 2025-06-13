@@ -1,5 +1,5 @@
 import { actualizarCarrito } from "./carrito.js";
-
+import { formatearPrecio } from "./utils.js";
 
 
   const popup = document.getElementById("carrito-popup");
@@ -9,6 +9,8 @@ import { actualizarCarrito } from "./carrito.js";
 
  
 
+  
+
 fetch("http://localhost:8020/api/productos")
   .then((res) => res.json())
   .then((data) => {
@@ -17,7 +19,7 @@ fetch("http://localhost:8020/api/productos")
     //Renderizado productos index.html
     data.forEach((p) => {
       const card = document.createElement("div");
-      card.className = "col-6 col-md-3 mb-4"; //3 por fila en escritorio,2 en mobile.
+      card.className =  //3 por fila en escritorio,2 en mobile.
       card.innerHTML = `
       <div class= "card h-100 shadow card-inicio"  >
         <img src ="${p.imagenUrl}" class = "card-img-top" alt ="${p.nombre}" >
@@ -29,7 +31,7 @@ fetch("http://localhost:8020/api/productos")
         </h5>
         <p class= "card-text text-center" style ="font-size :13px"><strong> ${p.descripcion} </strong></p>
 
-        <p class= "card-text fw-bold text-center" > $ ${p.precio} </p>
+        <p class= "card-text fw-bold text-center" >${formatearPrecio(p.precio)} </p>
         <span class ="vermas-contenedor">
         <button class = "btn btn-secondary vermas" id = "vermas" onclick = "verMas(${p.id})"> Ver mas </button>
          </span>

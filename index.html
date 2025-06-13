@@ -18,20 +18,30 @@
     <div class="spinner"></div>
   </div>
 
-  <div id="carrito-icono" class="carrito-container">
-    <img src="assets/carrito.png" alt="carrito-png" width="40" id="icono-carrito-contenido"
-      class="icono-carrito-contenido" />
-    <span id="contador-carrito" class="contador-carrito"></span>
-
-  </div>
 
 
   <!--Contenedor de los productos del inicio-->
-  <div class="container mt-4 container-productos">
+  <div class="container-productos">
     <div class="line"></div>
-    <h1 class="text-center mb-4">Productos </h1>
+
+
+
+
+
+    <h1 class="text-center mb-4">Productos</h1>
+    <!--El icono del carrito con el contador de productos que hay-->
+    <div id="carrito-icono" class="carrito-container">
+      <img src="assets/carrito.png" alt="carrito-png" width="40" id="icono-carrito-contenido"
+        class="icono-carrito-contenido" />
+      <span id="contador-carrito" class="contador-carrito"></span>
+
+    </div>
+
+
+
+
     <div class="line"></div>
-    <div class="row " id="productos-container">
+    <div id="productos-container">
 
       <!--Aca van los productos desde js-->
     </div>
@@ -40,17 +50,12 @@
   <!--Seccion de ventana modal del contenido del carrito y el contador del iconocarrito-->
   <section class="contenedor-detalle">
 
-    <div id="carrito-icono" class="carrito-container">
-      <img src="assets/carrito.png" alt="carrito-png" width="40" id="icono-carrito-contenido"
-        class="icono-carrito-contenido" id="carrito-contenido" />
-      <span id="contador-carrito" class="contador-carrito"></span>
 
-    </div>
 
 
     <div id="carrito-popup" class="popup-carrito ">
       <img src="assets/closel.png" id="icon-close">
-      <h6 class="text-center">Producto agregado</h6>
+
 
       <!--Aqui se renderiza la ventana modal-->
       <div id="producto-mini"></div>
@@ -66,6 +71,7 @@
 
 
   <script type="module" src="script.js"></script>
+  <script type="module" src="utils.js"></script>
   <script type="module" src="detalle.js"></script>
   <script type="module" src="carrito.js"></script>
 

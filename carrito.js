@@ -1,3 +1,5 @@
+import { formatearPrecio } from "./utils";
+
 const carritoGuardado = localStorage.getItem("carrito");
 export let carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
 const contenidoCarrito = document.getElementById("producto-mini");
@@ -11,10 +13,12 @@ const btnCompra = document.getElementById("btn-iniciar-compra");
 const popup = document.getElementById("carrito-popup");
 const contador = document.getElementById("contador-carrito");
 const totalCarrito = document.getElementById("total-carrito");
-const cantidadSpan = document.getElementById("cantidad");
 const iconClose = document.getElementById("icon-close")
-
 const iconoCarrito = document.getElementById("icono-carrito-contenido")
+
+const cantidad = document.getElementById("cantidad")
+
+
 
 // Agregar producto al carrito
 export function agregarAlCarrito(producto, popup, contenidoCarrito, contador, totalCarrito) {
@@ -26,8 +30,9 @@ export function agregarAlCarrito(producto, popup, contenidoCarrito, contador, to
     carrito.push({ ...producto, cantidad: 1 });
   }
 
-  actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito);
+  actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito)
   popup.classList.add("visible");
+ 
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -45,7 +50,7 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
   if (carrito.length == 0) {
     totalCarrito.style.display = "none";
     btnCompra.style.display = "none";
-    cantidad.style.display = "block";
+    cantidad.style.display = "none";
     carrito.length = 0;
   
     contenidoCarrito.innerHTML = `
@@ -68,9 +73,10 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
     item.classList.add("carrito-item");
 
     item.innerHTML = `
-    
+      
     <ul class="product-list">
       <li class="product-item">
+    
         <div class="product-info">
           <img src="${producto.imagenUrl}" >
           <div class="product-details">
@@ -80,10 +86,10 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
         </div>
         <div class="product-cantidad">
           <button class= "btn-restar" data-id = "${producto.id}">-</button>
-          <span class ="cantidad" data-id = "${producto.id}" >${producto.cantidad}</span>
+          <span class ="cantidad"  data-id = "${producto.id}" >${producto.cantidad}</span>
           <button class="btn-sumar" data-id="${producto.id}">+</button>
         </div>
-        <div class="price">$${producto.precio * producto.cantidad}</div>
+        <div class="price">$${formatearPrecio(producto.precio) * producto.cantidad}</div>
          <span class="material-symbols-outlined delete-btn" data-id=${producto.id}>
         delete
       </span>
@@ -95,7 +101,7 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
 
   // Actualizar el contador y el total del carrito
   contador.innerText = carrito.length;
-  totalCarrito.innerText = `Total: $${total}`;
+  totalCarrito.innerText = `Total: $${formatearPrecio(total)}`;
 
   guardarCarrito()
 }
@@ -116,7 +122,7 @@ contenidoCarrito.addEventListener("click",(e) => {
   if (e.target.classList.contains("btn-sumar")) {
     const id = parseInt(e.target.dataset.id);
     actualizarCantidad(id, 1, popup, contenidoCarrito, contador, totalCarrito);
-    cantidadSpan.textContent = parseInt(cantidadSpan.textContent) + 1;
+    cantidad.textContent = parseInt(cantidad.textContent) + 1;
     guardarCarrito()
   
   }
@@ -124,7 +130,7 @@ contenidoCarrito.addEventListener("click",(e) => {
   if (e.target.classList.contains("btn-restar")) {
     const id = parseInt(e.target.dataset.id);
     actualizarCantidad(id, -1, popup, contenidoCarrito, contador, totalCarrito);
-    cantidadSpan.textContent = parseInt(cantidadSpan.textContent) - 1;
+    cantidad.textContent = parseInt(cantidad.textContent) - 1;
     guardarCarrito()
   }
   
@@ -161,6 +167,8 @@ export function actualizarCantidad(id, cambio, popup, contenidoCarrito, contador
 iconClose.addEventListener("click", ()=> {
 
   popup.classList.remove('visible');
+  document.body.style="overflow-y:'auto'"
+  
 })
 
 
@@ -169,7 +177,11 @@ iconoCarrito.addEventListener("click",() => {
   if (popup.classList.contains("popup-carrito")){
 
     popup.classList.add("visible")
+    document.body.style="overflow-y:hidden"
   } 
+
+    
+  
 })
 
 
