@@ -171,7 +171,6 @@ iconClose.addEventListener("click", ()=> {
   
 })
 
-
 iconoCarrito.addEventListener("click",() => {
 
   if (popup.classList.contains("popup-carrito")){
@@ -179,13 +178,8 @@ iconoCarrito.addEventListener("click",() => {
     popup.classList.add("visible")
     document.body.style="overflow-y:hidden"
   } 
-
-    
   
 })
-
-
-
 
 guardarCarrito()
 actualizarCarrito(popup, contenidoCarrito, contador, totalCarrito);

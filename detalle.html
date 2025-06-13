@@ -34,25 +34,29 @@
     <!--Icono carrito y contador de objetos -->
 
 
-    <!-- Panel lateral del carrito -->
-
-
     <!--Ventana modal una vez que se agrega al carrito-->
     <div id="carrito-popup" class="popup-carrito ">
       <img src="assets/closel.png" id="icon-close">
 
 
 
-      <div id="producto-mini"></div>
+
+      <div id="producto-mini">
 
 
+      </div>
+
+
+
+      <div class="carrito-footer">
+        <p class="fw-bold text-center"><span id="total-carrito">0</span></p>
+        <button class="btn-success" id="btn-iniciar-compra">Iniciar compra</button>
+      </div>
       <span id="cantidad" style="display: none;">0</span>
-
-      <hr>
-      <p class="fw-bold text-center"><span id="total-carrito">0</span></p>
-      <button class="btn btn-success w-100" id="btn-iniciar-compra">Iniciar compra</button>
     </div>
+
   </section>
+
 
 
   <script type="module" src="script.js"></script>

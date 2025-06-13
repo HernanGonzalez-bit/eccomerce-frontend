@@ -24,10 +24,6 @@
   <div class="container-productos">
     <div class="line"></div>
 
-
-
-
-
     <h1 class="text-center mb-4">Productos</h1>
     <!--El icono del carrito con el contador de productos que hay-->
     <div id="carrito-icono" class="carrito-container">
@@ -36,8 +32,6 @@
       <span id="contador-carrito" class="contador-carrito"></span>
 
     </div>
-
-
 
 
     <div class="line"></div>
@@ -53,7 +47,7 @@
 
 
 
-    <div id="carrito-popup" class="popup-carrito ">
+    <div id="carrito-popup" class="popup-carrito">
       <img src="assets/closel.png" id="icon-close">
 
 
@@ -62,9 +56,10 @@
 
       <span id="cantidad" style="display: none;">0</span>
 
-      <hr>
-      <p class="fw-bold text-center"><span id="total-carrito">0</span></p>
-      <button class="btn btn-success w-100" id="btn-iniciar-compra">Iniciar compra</button>
+      <div class="carrito-footer">
+        <p class="fw-bold text-center"><span id="total-carrito">0</span></p>
+        <button class="btn-success" id="btn-iniciar-compra">Iniciar compra</button>
+      </div>
     </div>
   </section>
 
