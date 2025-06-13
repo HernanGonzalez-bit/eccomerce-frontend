@@ -29,7 +29,7 @@ fetch(`http://localhost:8020/api/productos/${id}`)
           <h5 class="card-title text-center">${producto.nombre}</h5>
           <p class="card-text text-center" style="font-size: 30px;"><strong>${producto.descripcion}</strong></p>
           <p class="card-text fw-bold text-center">${formatearPrecio(producto.precio)}</p>
-          <div class="btn-agregar-contenedor center">
+          <div class="btn-agregar-contenedor ">
            <button id="btn-agregar">Agregar al carrito</button>
             
           </div>

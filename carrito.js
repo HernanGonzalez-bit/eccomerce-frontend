@@ -1,4 +1,4 @@
-import { formatearPrecio } from "./utils";
+import { formatearPrecio } from "./utils.js";
 
 const carritoGuardado = localStorage.getItem("carrito");
 export let carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
@@ -89,7 +89,7 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
           <span class ="cantidad"  data-id = "${producto.id}" >${producto.cantidad}</span>
           <button class="btn-sumar" data-id="${producto.id}">+</button>
         </div>
-        <div class="price">$${formatearPrecio(producto.precio) * producto.cantidad}</div>
+        <div class="price">${formatearPrecio(producto.precio*producto.cantidad)}</div>
          <span class="material-symbols-outlined delete-btn" data-id=${producto.id}>
         delete
       </span>
@@ -101,7 +101,7 @@ export function actualizarCarrito(popup, contenidoCarrito, contador, totalCarrit
 
   // Actualizar el contador y el total del carrito
   contador.innerText = carrito.length;
-  totalCarrito.innerText = `Total: $${formatearPrecio(total)}`;
+  totalCarrito.innerText = `Total: ${formatearPrecio(total)}`;
 
   guardarCarrito()
 }
@@ -167,7 +167,7 @@ export function actualizarCantidad(id, cambio, popup, contenidoCarrito, contador
 iconClose.addEventListener("click", ()=> {
 
   popup.classList.remove('visible');
-  document.body.style="overflow-y:'auto'"
+  document.body.style.overflowY="auto"
   
 })
 

@@ -7,18 +7,20 @@ import { formatearPrecio } from "./utils.js";
   const contador = document.getElementById("contador-carrito");
   const totalCarrito = document.getElementById("total-carrito");
 
+  const container = document.getElementById("productos-container");
+
  
-
-  
-
+if (container) {
 fetch("http://localhost:8020/api/productos")
   .then((res) => res.json())
   .then((data) => {
-    const container = document.getElementById("productos-container");
-
+    
+    
     //Renderizado productos index.html
     data.forEach((p) => {
+     
       const card = document.createElement("div");
+      
       card.className =  //3 por fila en escritorio,2 en mobile.
       card.innerHTML = `
       <div class= "card h-100 shadow card-inicio"  >
@@ -47,9 +49,9 @@ fetch("http://localhost:8020/api/productos")
 
   });
   
-  
+}
 
-window.verMas = function (id) {
+window.verMas =  function (id) {
   const preloader = document.getElementById("preloader");
   preloader.style.display = "flex";
   setTimeout(() => {
